@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1st year anniversary</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/resident-evil');
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Dynamic Background Layer -->
+    <div id="dynamic-bg" class="bg-default"></div>
+
+    <!-- Animated Resident Evil Moon Backdrop Layer (Active on Moon Screen) -->
+    <div id="moon-re-backdrop" aria-hidden="true">
+        <div class="moon-fog-layer"></div>
+        <div class="moon-sigil moon-sigil-outer"></div>
+        <div class="moon-sigil moon-sigil-inner"></div>
+        <canvas id="moon-ember-canvas"></canvas>
+    </div>
+
+    <!-- Brightness Overlay -->
+    <div id="brightness-overlay"></div>
+
+    <!-- Official Audio Effects -->
+    <audio id="click-sound" src="https://www.myinstants.com/media/sounds/resident-evil-4-treasure-herb.mp3" preload="auto"></audio>
+    <audio id="bgm-music" src="https://www.myinstants.com/media/sounds/save-room-resident-evil-4-classico-o-save.mp3" loop preload="auto"></audio>
+
+    <!-- Main Title Screen Layout -->
+    <div class="re-title-screen" id="main-menu">
+        
+        <div class="logo-container">
+            <img src="re4-logo.png" alt="Resident Evil" class="re-graphic-logo">
+        </div>
+
+        <nav class="re-menu">
+            <a href="#" class="re-menu-item active" onmousedown="playSound()" onclick="startGame()">Start</a>
+            <a href="#" class="re-menu-item" onmousedown="playSound()" onclick="openMoonScreen()">Moon</a>
+            <a href="#" class="re-menu-item" onmousedown="playSound()" onclick="openOptions()">Options</a>
+            <a href="#" class="re-menu-item" onmousedown="playSound()" onclick="openLetter()">Letter</a>
+        </nav>
+
+        <div class="re-footer">
+            MADE BY: SARAH
+        </div>
+
+    </div>
+
+    <!-- Moon Screen: Friday, November 21, 2025 -->
+    <div class="moon-container" id="moon-screen">
+        <div class="inventory-header moon-anim-text">NOV 21, 2025</div>
+
+        <div class="moon-showcase-grid">
+            <div class="moon-visual-panel">
+                <img src="moon.jpg" alt="Nov 21, 2025 Moon" class="moon-photo">
+            </div>
+
+            <div class="moon-details-panel">
+                <h2 class="moon-phase-title moon-anim-text">WAXING CRESCENT</h2>
+                <p class="moon-meta-line moon-anim-text">FRIDAY, NOV 21, 2025 • SAGITTARIUS</p>
+
+                <div class="moon-stats-compact">
+                    <div class="moon-stat-pill moon-anim-text">
+                        <span>ILLUMINATION</span>
+                        <strong>1.4% WAXING</strong>
+                    </div>
+                    <div class="moon-stat-pill moon-anim-text">
+                        <span>LUNAR AGE</span>
+                        <strong>1.1 DAYS YOUNG</strong>
+                    </div>
+                </div>
+
+                <p class="moon-vow moon-anim-text">
+                    Even a sliver of light in the dark is enough to find you.
+                </p>
+            </div>
+        </div>
+
+        <div class="minigame-buttons" style="width: 100%; max-width: 780px;">
+            <button class="re-btn back-btn" onmousedown="playSound()" onclick="goBack()">BACK</button>
+        </div>
+    </div>
+
+    <!-- RE4 Style Options Panel -->
+    <div class="options-panel" id="options-panel">
+        <div class="inventory-header">OPTIONS</div>
+        
+        <div class="option-row">
+            <span class="option-label">MUSIC</span>
+            <button id="music-toggle" class="re-btn" onmousedown="playSound()" onclick="toggleMusic()">OFF</button>
+        </div>
+
+        <div class="option-row">
+            <span class="option-label">VOLUME</span>
+            <div class="slider-container">
+                <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" onmousedown="playSound()" oninput="changeVolume(this.value)">
+            </div>
+        </div>
+
+        <div class="option-row">
+            <span class="option-label">BRIGHTNESS</span>
+            <div class="slider-container">
+                <input type="range" id="brightness-slider" min="0.3" max="1" step="0.05" value="1" onmousedown="playSound()" oninput="changeBrightness(this.value)">
+            </div>
+        </div>
+
+        <button class="re-btn back-btn" onmousedown="playSound()" onclick="goBack()">BACK</button>
+    </div>
+
+    <!-- RE Typewriter Memo / Letter Modal -->
+    <div class="letter-modal" id="letter-modal">
+        <div class="letter-frame">
+            <div class="letter-ambient-mist" aria-hidden="true"></div>
+            <div class="letter-header">LETTER FOR SIDALI</div>
+            
+            <div class="letter-content">
+                <p>November 21, 2025… it’s a day I will never forget. The lover girl inside me was born that day.</p>
+                <p>It's difficult to believe that a whole year has passed since we became a part of each other’s lives. Sometimes I think about how everything started and how much you have come to mean to me since then. One year may not seem like a long time to some people, but to me it has been enough to create memories, develop feelings and discover a kind of love that I never knew I could experience in this way.</p>
+                <p>Happy first anniversary, my love.</p>
+                <p>When I look back on this year, I find myself thinking about all the little moments that have made it special. Our conversations, the laughter we have shared, the times we have seen each other at university, and even the brief moments when we could only spend a little time together. They may seem like ordinary things, but they mean so much to me because they are memories I share with you. Sometimes simply knowing that I might see you at university is enough to make a normal day feel different. There is something special about seeing you in the middle of a boring day and realizing that among all the people around me, you are the person that I'm always happy to see.</p>
+                <p>I also think about our birthdays and how special it feels to celebrate another year of life knowing that we have each other. Birthdays are already meaningful occasions but having someone you love makes them even more special. I hope that we will have many more birthdays to celebrate together, creating memories that we can look back on with happiness. I hope we will continue to be part of each other's special days, making even the simplest celebrations meaningful.</p>
+                <p>I never expected that one person could have such a special place in my heart, you have brought out a side of me that I did not know so well before meeting you. You have made me want to express my feelings and find meaning in things I might not have noticed before and you have also given me a reason to celebrate a date and write a letter like this simply because I want you to understand how much you mean to me.</p>
+                <p>I know that neither of us is perfect, and I don't expect our relationship to be perfect either. We are two people who are still learning about each other and discovering how to love one another better. What matters to me is that we continue to communicate and make an effort to protect what we have built together. I hope that even when things get tough we will always remember the feelings that brought us together in the first place.</p>
+                <p>I want you to know that you are important to me, not only because you are my boyfriend but because you are the person you are. I care about your feelings, your dreams, and the things that matter to you. I want to understand you better with time, to be someone you can speak to honestly, and to make you feel appreciated and loved. I may not always find the right words to express everything I feel but I hope my actions will show you what my words sometimes cannot.</p>
+                <p>One of my favourite things about us is that we have our own little moments that might not mean much to anyone else but will always mean something to me. The days we see each other at uni and the conversations we share are all part of our story. I know that years from now I might look back on these days and miss how warm everything felt. I might even wish I could return to one of those days just to see you again even for a few minutes. That is how I know these moments matter to me because they are happening with you.</p>
+                <p>Looking back on this past year, I am grateful for the fact that I met you, for the things we have created and for what this relationship has taught me. Of course I can't predict what the future holds for us, but I know that I want to continue making beautiful memories with you. I want us to grow together, learn from our mistakes and give ourselves the chance to build something meaningful.</p>
+                <p>If I could return to November 21, 2025, knowing everything I know today, I would still choose to experience this journey with you. I would still want to meet you, get to know you, and allow myself to fall in love with you. Because despite everything that may come with loving another person, I believe that the moments we have shared have made this year special to me.</p>
+                <p>And perhaps that is what makes this date so important. It's not simply the anniversary of our relationship, it's the beginning of a chapter in my life that I will always remember. It's the day that the lover girl inside me found a reason to express herself and to appreciate the beauty of loving someone.</p>
+                <p>Thank you for being part of my life and for giving this year a meaning. Thank you for the memories, the conversations and the little moments that have become part of our story. Most importantly, thank you for being someone I can look back on this year and feel grateful to have met.</p>
+                <p>Happy first anniversary my love. I hope this is only the beginning of many more anniversaries and beautiful moments together. I hope that one day we will look back on this first year and smile at how everything started, remembering the people we were and how much we have grown since then.</p>
+                <p>Whatever the future brings, I will always be grateful that November 21, 2025 brought you into my life.</p>
+                <p>I love you, and I hope you never forget how special you are to me. You will always be the person who gave me a reason to exist.</p>
+                <p>With all my love,</p>
+                <p>Sarah. ♡</p>
+            </div>
+
+            <button class="re-btn back-btn" onmousedown="playSound()" onclick="goBack()">RETURN</button>
+        </div>
+    </div>
+
+    <!-- RE4 Attaché Case Ranking Minigame Screen -->
+    <div class="minigame-container" id="minigame-screen">
+        <div class="inventory-header">RANK YOUR FAVORITES</div>
+        <p class="minigame-instructions">drag to classify the resident evil games from #1 to #8</p>
+        
+        <div class="game-board">
+            <div class="card-pool" id="card-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                <div class="game-card" draggable="true" id="card-re2" ondragstart="drag(event)">
+                    <img src="re2.jpg" alt="RE2">
+                    <span>RE 2</span>
+                </div>
+                <div class="game-card" draggable="true" id="card-re3" ondragstart="drag(event)">
+                    <img src="re3.jpg" alt="RE3">
+                    <span>RE 3</span>
+                </div>
+                <div class="game-card" draggable="true" id="card-re4" ondragstart="drag(event)">
+                    <img src="re4.jpg" alt="RE4">
+                    <span>RE 4</span>
+                </div>
+                <div class="game-card" draggable="true" id="card-re5" ondragstart="drag(event)">
+                    <img src="re5.jpg" alt="RE5">
+                    <span>RE 5</span>
+                </div>
+                <div class="game-card" draggable="true" id="card-re6" ondragstart="drag(event)">
+                    <img src="re6.jpg" alt="RE6">
+                    <span>RE 6</span>
+                </div>
+                <div class="game-card" draggable="true" id="card-re7" ondragstart="drag(event)">
+                    <img src="re7.jpg" alt="RE7">
+                    <span>RE 7</span>
+                </div>
+                <div class="game-card" draggable="true" id="card-re8" ondragstart="drag(event)">
+                    <img src="re8.jpg" alt="RE8">
+                    <span>RE 8</span>
+                </div>
+                <div class="game-card" draggable="true" id="card-re9" ondragstart="drag(event)">
+                    <img src="re9.jpg" alt="RE9">
+                    <span>RE 9</span>
+                </div>
+            </div>
+
+            <div class="ranking-container">
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#1</span></div>
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#2</span></div>
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#3</span></div>
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#4</span></div>
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#5</span></div>
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#6</span></div>
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#7</span></div>
+                <div class="rank-slot" ondragover="allowDrop(event)" ondrop="dropToSlot(event, this)"><span class="rank-num">#8</span></div>
+            </div>
+        </div>
+
+        <div class="minigame-buttons">
+            <button class="re-btn back-btn" onmousedown="playSound()" onclick="goBack()">BACK</button>
+            <button class="re-btn next-btn" onmousedown="playSound()" onclick="openScratchCard()">NEXT</button>
+        </div>
+    </div>
+
+    <!-- RE4 3D Scratch Card Screen -->
+    <div class="scratch-container" id="scratch-screen">
+        <div class="inventory-header">CLASSIFIED FILE</div>
+        <p class="minigame-instructions">scratch to reveal</p>
+        
+        <div class="scratch-card-wrapper">
+            <div class="corner-screw tl"></div>
+            <div class="corner-screw tr"></div>
+            <div class="corner-screw bl"></div>
+            <div class="corner-screw br"></div>
+
+            <div class="scratch-reveal">
+                <h2>je t'aime bien plus que hier mais bien moins que demain</h2>
+            </div>
+            <canvas id="scratch-canvas" width="500" height="240"></canvas>
+        </div>
+
+        <div class="minigame-buttons" style="width: 500px;">
+            <button class="re-btn back-btn" onmousedown="playSound()" onclick="goBack()">BACK</button>
+            <button class="re-btn next-btn" onmousedown="playSound()" onclick="openSafeRoomScreen()">NEXT</button>
+        </div>
+    </div>
+
+    <!-- Safe Room Screen (Animated Memory Jar & Burgundy Card) -->
+    <div class="safe-room-container" id="safe-room-screen">
+        <div class="inventory-header">SAFE ROOM</div>
+        <p class="minigame-instructions">In a world full of monsters, you're my safe room.</p>
+        
+        <div class="jar-stage">
+            <div class="glass-jar" id="glass-jar" onclick="openJarLetter()">
+                <div class="jar-lid"></div>
+                <canvas id="jar-particle-canvas" width="220" height="280"></canvas>
+                <div class="typewriter-icon">⌨️</div>
+                <div class="jar-prompt">CLICK TO INSPECT TYPEWRITER</div>
+            </div>
+
+            <!-- Burgundy Animated Confession Card -->
+            <div class="safe-letter-card burgundy-animated-card" id="safe-letter-card">
+                <p class="letter-quote">"If life were a Resident Evil game, I'd probably spend my entire inventory protecting you. But if I had to choose one place to save my progress, it would always be wherever you are."</p>
+                <br>
+                <p class="letter-quote highlight">"You are my safe room, my favorite person, and the place my heart returns to."</p>
+                
+                <button class="re-btn next-btn" style="margin-top: 25px;" onmousedown="playSound()" onclick="openSaveRoomScreen()">PROCEED TO SAVE ROOM</button>
+            </div>
+        </div>
+
+        <div class="minigame-buttons" style="width: 100%; max-width: 580px;">
+            <button class="re-btn back-btn" onmousedown="playSound()" onclick="goBack()">BACK</button>
+        </div>
+    </div>
+
+    <!-- Final Save Room Screen with Interactive Typewriter Terminal -->
+    <div class="save-room-container" id="save-room-screen">
+        <div class="inventory-header">SAVE ROOM</div>
+        <p class="minigame-instructions">SAVE YOUR PROGRESS</p>
+        
+        <div class="save-station-box animated-terminal">
+            <div class="typewriter-glow-ring"></div>
+
+            <button class="re-btn save-game-btn pulse-glow-btn" id="save-btn" onmousedown="playSound()" onclick="triggerGameSave()">[ SAVE OUR GAME ♥ ]</button>
+            <div class="save-status-msg" id="save-status-msg"></div>
+        </div>
+
+        <div class="minigame-buttons" style="width: 100%; max-width: 540px;">
+            <button class="re-btn back-btn" onmousedown="playSound()" onclick="goBack()">BACK</button>
+        </div>
+    </div>
+
+    <script>
+        const clickSound = document.getElementById('click-sound');
+        const bgmMusic = document.getElementById('bgm-music');
+        
+        const optionsPanel = document.getElementById('options-panel');
+        const letterModal = document.getElementById('letter-modal');
+        const minigameScreen = document.getElementById('minigame-screen');
+        const scratchScreen = document.getElementById('scratch-screen');
+        const safeRoomScreen = document.getElementById('safe-room-screen');
+        const saveRoomScreen = document.getElementById('save-room-screen');
+        const moonScreen = document.getElementById('moon-screen');
+        const mainMenu = document.getElementById('main-menu');
+        const dynamicBg = document.getElementById('dynamic-bg');
+        const moonReBackdrop = document.getElementById('moon-re-backdrop');
+        
+        const musicToggleBtn = document.getElementById('music-toggle');
+        const brightnessOverlay = document.getElementById('brightness-overlay');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        let isMusicPlaying = false;
+        clickSound.volume = 0.3;
+        bgmMusic.volume = volumeSlider.value;
+
+        let historyStack = ['main-menu'];
+
+        // Web Audio Synth FX
+        let audioCtx = null;
+        let scratchNoiseNode = null;
+        let scratchGainNode = null;
+
+        function initScratchAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function startScratchSound() {
+            initScratchAudio();
+            if (scratchNoiseNode) return;
+
+            const bufferSize = audioCtx.sampleRate * 2;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            scratchNoiseNode = audioCtx.createBufferSource();
+            scratchNoiseNode.buffer = buffer;
+            scratchNoiseNode.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 400; 
+            filter.Q.value = 1;
+
+            scratchGainNode = audioCtx.createGain();
+            scratchGainNode.gain.value = 0.06;
+
+            scratchNoiseNode.connect(filter);
+            filter.connect(scratchGainNode);
+            scratchGainNode.connect(audioCtx.destination);
+
+            scratchNoiseNode.start();
+        }
+
+        function stopScratchSound() {
+            if (scratchNoiseNode) {
+                try {
+                    scratchNoiseNode.stop();
+                    scratchNoiseNode.disconnect();
+                } catch(e) {}
+                scratchNoiseNode = null;
+            }
+        }
+
+        function showScreen(screenId, pushToHistory = true) {
+            stopScratchSound();
+            mainMenu.style.display = 'none';
+            moonScreen.style.display = 'none';
+            optionsPanel.style.display = 'none';
+            letterModal.style.display = 'none';
+            minigameScreen.style.display = 'none';
+            scratchScreen.style.display = 'none';
+            safeRoomScreen.style.display = 'none';
+            saveRoomScreen.style.display = 'none';
+
+            // Dynamic Background Change ONLY on Save Room Screen
+            if (screenId === 'save-room-screen') {
+                dynamicBg.className = 'bg-saveroom';
+            } else {
+                dynamicBg.className = 'bg-default';
+            }
+
+            // Animated Resident Evil Moon Backdrop ONLY on Moon Screen
+            if (screenId === 'moon-screen') {
+                moonReBackdrop.classList.add('active');
+            } else {
+                moonReBackdrop.classList.remove('active');
+                stopMoonEmbers();
+            }
+
+            const targetEl = document.getElementById(screenId);
+            targetEl.style.display = 'flex';
+
+            // Stagger-trigger text entrance animations on Moon Screen
+            if (screenId === 'moon-screen') {
+                const animItems = targetEl.querySelectorAll('.moon-anim-text');
+                animItems.forEach((el, i) => {
+                    el.classList.remove('moon-anim-active');
+                    void el.offsetWidth;
+                    setTimeout(() => el.classList.add('moon-anim-active'), 70 + i * 95);
+                });
+            }
+
+            if (pushToHistory && historyStack[historyStack.length - 1] !== screenId) {
+                historyStack.push(screenId);
+            }
+        }
+
+        function playSound() {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(e => console.log("Audio waiting for user interaction"));
+        }
+
+        function openMoonScreen() {
+            showScreen('moon-screen');
+            initMoonEmbers();
+        }
+
+        function openOptions() {
+            showScreen('options-panel');
+        }
+
+        function openLetter() {
+            showScreen('letter-modal');
+        }
+
+        function startGame() {
+            showScreen('minigame-screen');
+        }
+
+        function openScratchCard() {
+            showScreen('scratch-screen');
+            initScratchCanvas();
+        }
+
+        function openSafeRoomScreen() {
+            showScreen('safe-room-screen');
+            resetSafeRoom();
+            initJarParticles();
+        }
+
+        function openSaveRoomScreen() {
+            showScreen('save-room-screen');
+            document.getElementById('save-status-msg').innerHTML = '';
+        }
+
+        function resetSafeRoom() {
+            document.getElementById('glass-jar').style.display = 'flex';
+            document.getElementById('glass-jar').style.opacity = '1';
+            document.getElementById('safe-letter-card').style.display = 'none';
+            document.getElementById('safe-letter-card').style.opacity = '0';
+        }
+
+        function openJarLetter() {
+            playSound();
+            const jar = document.getElementById('glass-jar');
+            const card = document.getElementById('safe-letter-card');
+
+            jar.style.transition = 'all 0.4s ease';
+            jar.style.transform = 'scale(0.8)';
+            jar.style.opacity = '0';
+
+            setTimeout(() => {
+                jar.style.display = 'none';
+                card.style.display = 'flex';
+                setTimeout(() => card.style.opacity = '1', 50);
+            }, 350);
+        }
+
+        function triggerGameSave() {
+            playSound();
+            const statusDiv = document.getElementById('save-status-msg');
+            const saveBtn = document.getElementById('save-btn');
+            
+            saveBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => saveBtn.style.transform = 'scale(1)', 150);
+
+            statusDiv.innerHTML = `
+                <div class="save-flash-box">
+                    <p class="save-success-heading">GAME SAVED SUCCESSFULLY.</p>
+                    <p class="save-date-text">Progress saved: November 21, 2026.</p>
+                </div>
+            `;
+        }
+
+        function goBack() {
+            stopScratchSound();
+            if (historyStack.length > 1) {
+                historyStack.pop();
+                let previousScreen = historyStack[historyStack.length - 1];
+                showScreen(previousScreen, false);
+            } else {
+                showScreen('main-menu', false);
+            }
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                bgmMusic.pause();
+                musicToggleBtn.textContent = "OFF";
+                musicToggleBtn.classList.remove('active-glow');
+                isMusicPlaying = false;
+            } else {
+                bgmMusic.play().then(() => {
+                    musicToggleBtn.textContent = "ON";
+                    musicToggleBtn.classList.add('active-glow');
+                    isMusicPlaying = true;
+                }).catch(e => console.log("Audio playback blocked"));
+            }
+        }
+
+        function changeVolume(val) {
+            bgmMusic.volume = val;
+        }
+
+        function changeBrightness(val) {
+            brightnessOverlay.style.backgroundColor = `rgba(0, 0, 0, ${1 - val})`;
+        }
+
+        /* Drag and Drop Ranking Logic */
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.closest('.game-card').id);
+        }
+
+        function dropToSlot(ev, slot) {
+            ev.preventDefault();
+            let data = ev.dataTransfer.getData("text");
+            let card = document.getElementById(data);
+            
+            if (card && slot) {
+                let existingCard = slot.querySelector('.game-card');
+                if (existingCard && existingCard !== card) {
+                    document.getElementById('card-pool').appendChild(existingCard);
+                }
+                slot.appendChild(card);
+                playSound();
+            }
+        }
+
+        function dropToPool(ev) {
+            ev.preventDefault();
+            let data = ev.dataTransfer.getData("text");
+            let card = document.getElementById(data);
+            let pool = document.getElementById('card-pool');
+            if (card && pool) {
+                pool.appendChild(card);
+                playSound();
+            }
+        }
+
+        /* 3D Scratch Card Canvas Logic */
+        function initScratchCanvas() {
+            const canvas = document.getElementById('scratch-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            let gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#1c0808');
+            gradient.addColorStop(0.5, '#2b0f0f');
+            gradient.addColorStop(1, '#110303');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#b30000';
+            ctx.font = 'bold 30px "Resident Evil", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = '#ff0000';
+            ctx.shadowBlur = 12;
+            ctx.fillText('SCRATCH!!!!!!!', canvas.width / 2, canvas.height / 2 + 10);
+
+            let isDrawing = false;
+
+            function getMousePos(e) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: (e.clientX || e.touches[0].clientX) - rect.left,
+                    y: (e.clientY || e.touches[0].clientY) - rect.top
+                };
+            }
+
+            function scratch(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                const pos = getMousePos(e);
+                
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 32, 0, Math.PI * 2, false);
+                ctx.fill();
+            }
+
+            canvas.onmousedown = (e) => {
+                isDrawing = true;
+                startScratchSound();
+                scratch(e);
+            };
+
+            canvas.onmousemove = scratch;
+
+            window.onmouseup = () => {
+                if (isDrawing) {
+                    isDrawing = false;
+                    stopScratchSound();
+                }
+            };
+
+            canvas.ontouchstart = (e) => {
+                isDrawing = true;
+                startScratchSound();
+                scratch(e);
+            };
+            canvas.ontouchmove = scratch;
+            canvas.ontouchend = () => {
+                isDrawing = false;
+                stopScratchSound();
+            };
+        }
+
+        /* Floating Embers on Moon Screen Backdrop */
+        let moonEmberLoopId = null;
+
+        function initMoonEmbers() {
+            const emberCanvas = document.getElementById('moon-ember-canvas');
+            const eCtx = emberCanvas.getContext('2d');
+
+            emberCanvas.width = window.innerWidth;
+            emberCanvas.height = window.innerHeight;
+
+            const embers = [];
+            for (let i = 0; i < 46; i++) {
+                embers.push({
+                    x: Math.random() * emberCanvas.width,
+                    y: Math.random() * emberCanvas.height,
+                    r: Math.random() * 2.2 + 0.8,
+                    vy: -(Math.random() * 0.65 + 0.2),
+                    vx: (Math.random() - 0.5) * 0.4,
+                    phase: Math.random() * Math.PI * 2,
+                    crimson: Math.random() > 0.25
+                });
+            }
+
+            let tick = 0;
+
+            function renderEmbers() {
+                tick += 0.02;
+                eCtx.clearRect(0, 0, emberCanvas.width, emberCanvas.height);
+
+                for (let i = 0; i < embers.length; i++) {
+                    const em = embers[i];
+                    em.y += em.vy;
+                    em.x += em.vx + Math.sin(tick + em.phase) * 0.25;
+
+                    if (em.y < -10) {
+                        em.y = emberCanvas.height + 10;
+                        em.x = Math.random() * emberCanvas.width;
+                    }
+
+                    const alpha = 0.25 + 0.32 * (0.5 + 0.5 * Math.sin(tick * 2 + em.phase));
+                    eCtx.fillStyle = em.crimson
+                        ? `rgba(195, 22, 22, ${alpha})`
+                        : `rgba(220, 195, 170, ${alpha * 0.55})`;
+                    eCtx.shadowColor = em.crimson ? '#ff1a1a' : '#d8c5b0';
+                    eCtx.shadowBlur = 7;
+                    eCtx.beginPath();
+                    eCtx.arc(em.x, em.y, em.r, 0, Math.PI * 2);
+                    eCtx.fill();
+                }
+
+                if (moonScreen.style.display === 'flex') {
+                    moonEmberLoopId = requestAnimationFrame(renderEmbers);
+                }
+            }
+
+            stopMoonEmbers();
+            renderEmbers();
+        }
+
+        function stopMoonEmbers() {
+            if (moonEmberLoopId) {
+                cancelAnimationFrame(moonEmberLoopId);
+                moonEmberLoopId = null;
+            }
+        }
+
+        /* Memory Jar Ambient Fireflies Animation */
+        let jarParticles = [];
+        let jarAnimId = null;
+
+        function initJarParticles() {
+            const canvas = document.getElementById('jar-particle-canvas');
+            const ctx = canvas.getContext('2d');
+
+            jarParticles = [];
+            for (let i = 0; i < 35; i++) {
+                jarParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 1.2,
+                    vy: (Math.random() - 0.5) * 1.2,
+                    radius: Math.random() * 2.5 + 1,
+                    alpha: Math.random()
+                });
+            }
+
+            function animateJar() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < jarParticles.length; i++) {
+                    let p = jarParticles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                    ctx.fillStyle = `rgba(255, 120, 50, ${p.alpha})`;
+                    ctx.shadowColor = '#ff5500';
+                    ctx.shadowBlur = 10;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                if (safeRoomScreen.style.display === 'flex') {
+                    jarAnimId = requestAnimationFrame(animateJar);
+                }
+            }
+
+            if (jarAnimId) cancelAnimationFrame(jarAnimId);
+            animateJar();
+        }
+    </script>
+</body>
+</html>
